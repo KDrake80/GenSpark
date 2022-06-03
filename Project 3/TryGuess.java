@@ -13,8 +13,8 @@ public class TryGuess {
 			String name = input.next();
 			System.out.println("Well, " + name + ", I'm thinking of a number between 1 and 20.\nTake a guess");
 			int count = 0;
+			int answer = (int)(1 + Math.random() * 20);
 			while (count <= 6) {
-				int answer = (int)(1 + Math.random() * 5);
 				int guess = input.nextInt();
 				if (guess < answer) {
 					System.out.println("Your answer is too low");
@@ -31,6 +31,7 @@ public class TryGuess {
 						System.out.println(" Would you like to play again?");
 						String yes = input.next();
 						if (yes.equalsIgnoreCase("y")) {
+							answer = (int)(1 + Math.random() * 20);
 							System.out.println("Take a guess");
 						}
 						else
