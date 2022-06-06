@@ -1,4 +1,4 @@
-package genspark.assignments.section2;
+
 
 import java.util.Scanner;
 public class GuessNumber {

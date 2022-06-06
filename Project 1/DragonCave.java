@@ -1,4 +1,4 @@
-package genspark.assignments.Projects;
+
 
 import java.util.Scanner;
 public class DragonCave {

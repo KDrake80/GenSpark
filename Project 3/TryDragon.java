@@ -1,4 +1,4 @@
-package genspark.assignments.Projects;
+
 import java.util.Scanner;
 /*
  * Went Back and added try Catch statement to where user inputs information.
