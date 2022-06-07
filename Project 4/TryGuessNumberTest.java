@@ -50,7 +50,7 @@ class TryGuessNumberTest {
     /*
         /**
         * Test the Run Method. This one is Commented out, as it runs continuously due to the fact that it
-        *   has the scanner in it. You can now enter stuff in on JUnit for input. So this method does not test,
+        *   has the scanner in it. You can not enter information into the console on JUnit for input. So this method does not test,
         *   if this is not OK, I will redo this Assignment
         *
         *
