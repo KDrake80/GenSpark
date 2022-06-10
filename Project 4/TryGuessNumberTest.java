@@ -47,19 +47,4 @@ class TryGuessNumberTest {
         guess.setAnswer(6);
         assertEquals(6, guess.getAnswer(), "Set Answer: Failed");
     }
-    /*
-        /**
-        * Test the Run Method. This one is Commented out, as it runs continuously due to the fact that it
-        *   has the scanner in it. You can not enter information into the console on JUnit for input. So this method does not test,
-        *   if this is not OK, I will redo this Assignment
-        *
-        *
-        /
-
-
-    @Test
-    void run(){
-        assertEquals();
-    }
-     */
 }
