@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * JUnit Class for Hangman game
+ *
  * @author KevinD
  * 6/15/22
  */
@@ -31,7 +32,7 @@ class HangmanTest {
      * Test 2: checks a false case
      */
     @Test
-    void testCheckGuess(){
+    void testCheckGuess() {
         assertEquals(true, hangman.checkGuess("g"), "Check Guess: Failed");
         assertEquals(false, hangman.checkGuess("t"), "Check Guess 2: Failed");
     }
@@ -66,7 +67,7 @@ class HangmanTest {
      * Test 1: the guess is set to "---" in contructor
      */
     @Test
-    void testGetGuesses(){
+    void testGetGuesses() {
         assertEquals("---", hangman.getGuesses(), "Get Guesses: Failed");
     }
 }
