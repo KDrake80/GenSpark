@@ -1,6 +1,16 @@
 import java.util.Scanner;
-
+/*
+* Kevin Drake
+* 6/28/22
+* Main Class to run the Humans Vs Goblins game
+*/
 public class Game {
+    /*
+     Holds a GameMap grid instance
+     Human instance as player
+     Array of Goblins
+     Current = the Goblin the Human attacks
+    */
     GameMap world;
     Human player = new Human();
     Goblin[] enemies = new Goblin[3];
@@ -29,6 +39,9 @@ public class Game {
         world.setSpace(world.getDimensions() - 1, 4, enemies[2]);
         world.printMap();
     }
+    // Method to play the Game, Uses a Scanner to get your Choice
+    // runs a while loop, the loop exits either if the Human dies, or 
+    // there are no goblins left on the Board
     public void playGame(){
         Scanner input = new Scanner(System.in);
         while (true){
@@ -51,6 +64,11 @@ public class Game {
             }
         }
     }
+    
+    // This is the Method to attack
+    // If random == 1, Human Attacks, If random = 2 goblin attacks
+    // If Humans health is 0, or the Board no longer contains goblins,
+    // the Method exits the game, through System.exit(0)
     public void battle(){
         int random = (int)(1 + Math.random() * 2);
         if (random == 1)
@@ -71,6 +89,9 @@ public class Game {
         }
 
     }
+    /*
+    Method to check the boundaries before the Player makes a move
+    */
     public boolean checkBoundaries(char c) {
         if (c == 'N' && player.getX() > 0) {
             return true;
@@ -84,6 +105,10 @@ public class Game {
             return false;
         }
     }
+    /*
+    Method to check if there is an Enemy near the player, I.e. An enemy is 1 Square ahead
+        of the human whatever direction
+    */
     public boolean check(char c){
         if (c == 'N' && world.getSpace(player.getX() - 1, player.getY()) instanceof Goblin){
             current = (Goblin)world.getSpace(player.getX() - 1, player.getY());
@@ -102,6 +127,10 @@ public class Game {
             return false;
         }
     }
+    /*
+    Method to move the player. If the CheckBoundaries comes back true, And 
+        Check(Enemy) Method is false. The Method moves the character
+    */
     public void movePlayer(char c){
         switch (c){
             case 'N': world.setTile(player.getX() - 1, player.getY(), player); break;
@@ -110,11 +139,15 @@ public class Game {
             case 'E': world.setTile(player.getX(), player.getY() + 1, player); break;
         }
     }
+    /*
+     Main method to Test the Game
+    */
     public static void main(String[] args){
         Game game = new Game();
         game.playGame();
     }
 }
+// Class to Define the Land Object and ToString Method
 class Land extends Thing {
     public Land(){
         setValue("~");
