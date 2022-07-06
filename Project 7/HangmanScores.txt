@@ -1,0 +1,8 @@
+Dean | 800 | aptitude
+Christian | 800 | aardvark
+Adam | 700 | excite
+Kevin | 700 | aptitude
+James | 600 | blubber
+Horatio | 500 | blubber
+Sam | 500 | intelligence
+Laura | 400 | crullers
