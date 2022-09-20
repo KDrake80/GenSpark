@@ -5,7 +5,7 @@ import javafx.scene.layout.BorderPane;
 
 public abstract class Thing extends BorderPane {
     ImageView icon;
-    int x, y;
+    Integer x, y;
 
     public ImageView getIcon() {
         return icon;

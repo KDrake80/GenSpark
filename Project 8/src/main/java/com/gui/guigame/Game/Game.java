@@ -22,7 +22,7 @@ public class Game extends Application {
         display.setPrefHeight(75);
         display.setPrefRowCount(10);
         display.setEditable(false);
-        display.setText("Which?");
+        display.setText("Press UP, DOWN, LEFT, RIGHT arrow keys to move direction\nWhich direction?");
         movePiece();
         Scene s = new Scene(bp);
         stage.setScene(s);
@@ -30,11 +30,21 @@ public class Game extends Application {
         stage.show();
         display.requestFocus();
     }
-    public void displayError(int num){
+    public String displayError(int num){
         if (num == 0)
-            display.setText("Error! Invalid Move! Retry!");
-        else
-            display.setText("Occupied");
+            return "Error! Invalid Move! Retry!";
+        else {
+            Goblin target = null;
+            for (Goblin g: map.enemies) {
+                if (g.getX() == map.player.getX() && g.getY() == map.player.getY() + 1 ||
+                g.getX() == map.player.getX() && g.getY() == map.player.getY() - 1 ||
+                g.getX() == map.player.getX() + 1 && g.getY() == map.player.getY() ||
+                g.getX() == map.player.getX() - 1 && g.getY() == map.player.getY()) {
+                    target = g;
+                }
+            }
+            return map.player.attack(target);
+        }
     }
     public void movePiece(){
         display.setOnKeyPressed(e -> {
@@ -44,117 +54,44 @@ public class Game extends Application {
                             !map.checkTileOccupied(map.player.getX() - 1, map.player.getY())){
                         map.movePiece("UP", map.player);
                     } else if (map.checkTileOccupied(map.player.getX() - 1, map.player.getY())) {
-                        displayError(1);
+                        display.setText(displayError(1));
                     } else {
-                        displayError(0);
+                        display.setText(displayError(0));
                     }
-                //    moveGoblin();
                 }
                 case DOWN -> {
                     if (map.player.getX() < map.dimension - 1 &&
                             !map.checkTileOccupied(map.player.getX() + 1, map.player.getY())){
                         map.movePiece("DOWN", map.player);
                     } else if (map.checkTileOccupied(map.player.getX() + 1, map.player.getY())) {
-                        displayError(1);
+                        display.setText(displayError(1));
                     } else {
-                        displayError(0);
+                        display.setText(displayError(0));
                     }
-               //     moveGoblin();
                 }
                 case LEFT -> {
                     if (map.player.getY() > 0 && !map.checkTileOccupied(map.player.getX(), map.player.getY() - 1)) {
                         map.movePiece("LEFT", map.player);
                     } else if (map.checkTileOccupied(map.player.getX(), map.player.getY() - 1)) {
-                        displayError(1);
+                        display.setText(displayError(1));
                     } else {
-                        displayError(0);
+                        display.setText(displayError(0));
                     }
-                 //   moveGoblin();
                 }
                 case RIGHT -> {
                     if (map.player.getY() < map.dimension - 1 &&
                             !map.checkTileOccupied(map.player.getX(), map.player.getY() + 1)) {
                         map.movePiece("RIGHT", map.player);
                     } else if (map.checkTileOccupied(map.player.getX(), map.player.getY() + 1)) {
+                        display.setText(displayError(1));
                     } else {
-                        displayError(0);
+                        display.setText(displayError(0));
                     }
-                   // moveGoblin();
                 }
             }
         });
     }
-//    public void moveGoblin(){
-//        boolean[][] data = new boolean[map.enemies.length][5];
-//        boolean vert1, hor1, spec1, spec2, c1;
-//        //  data[i]0 data[i]1 data[i]2 data[i]3 data[i]4
-//        int[] subtractions = new int[2];
-//        // map.enemies[i]
-//        for (int i = 0; i < map.enemies.length; i++) {
-//            /**
-//             * case 0: check to see if the Goblin is Above the player, or Below
-//             * case 1: check to see if Goblin is to the Left, or Right
-//             * case 2: Special Case: if on same Row
-//             * case 3: Special Case: if they are in same Column
-//             * subtractions 0: count how many spaces away row wise (math.abs called just in case its negative)
-//             * subtractions 1: count how many spaces away column wise (math.abs called just in case its negative)
-//             * case 4: take the farthest path to shorten the distance
-//             */
-//            data[i][0] = GridPane.getRowIndex(map.enemies[i]) < GridPane.getRowIndex(map.player);
-//            data[i][1] = GridPane.getColumnIndex(map.enemies[i]) < GridPane.getColumnIndex(map.player);
-//            data[i][2] = GridPane.getRowIndex(map.enemies[i]) == GridPane.getRowIndex(map.player);
-//            data[i][3] = GridPane.getColumnIndex(map.enemies[i]) == GridPane.getColumnIndex(map.player);
-//            subtractions[0] = Math.abs(map.enemies[i].getX() - map.player.getX());
-//            subtractions[1] =  Math.abs(map.enemies[i].getY() - map.player.getY());
-//            data[i][4] = subtractions[0] < subtractions[1];
-//
-//            // Special Cases if they're both equal they should attack
-//            if (!data[i][2] && !data[i][3]){
-//                // Case 1: Down and Right
-//                if (data[i][0] && data[i][1]){
-//                    // Move: Down
-//                    if (data[i][4]){
-//                        map.movePiece("DOWN", map.enemies[i]);
-//                    }
-//                    // Move: Right
-//                    else {
-//                        map.movePiece("RIGHT", map.enemies[i]);
-//                    }
-//                    // Case 2:  Down and Left
-//                } else if (data[i][0] && !data[i][1]) {
-//                    if (data[i][4]){
-//                        map.movePiece("DOWN", map.enemies[i]);
-//                    }
-//                    // Move: Left
-//                    else {
-//                        map.movePiece("Left", map.enemies[i]);
-//                    }
-//                    // Case 3: Up and Left
-//                } else if (!data[i][0] && !data[i][1]) {
-//                    // Move: Up
-//                    if (data[i][4]){
-//                        map.movePiece("UP", map.enemies[i]);
-//                    }
-//                    // Move: Left
-//                    else {
-//                        map.movePiece("LEFT", map.enemies[i]);
-//                    }
-//                    // Case 4: Up and Right
-//                } else if (!data[i][0] && data[i][1]) {
-//                    // Move: Up
-//                    if (data[i][4]){
-//                        map.movePiece("UP", map.enemies[i]);
-//                    }
-//                    // Move: Right
-//                    else{
-//                        map.movePiece("RIGHT", map.enemies[i]);
-//                    }
-//                }
-//            }else if (data[i][2] && data[i][3]){
-//                displayError(1);
-//            }
-//        }
-//    }
+
    public static void main(String[] args) {
         launch(args);
     }
